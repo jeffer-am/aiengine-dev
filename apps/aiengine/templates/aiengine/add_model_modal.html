@@ -1,0 +1,27 @@
+<!-- apps/aiengine/templates/aiengine/add_model_modal.html -->
+
+<div id="addModelModal" class="modal" style="display: none;">
+  <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h3>Adicionar Novo Modelo</h3>
+      <form id="addModelForm" method="POST" action="{% url 'app-aiengine-add-model' %}">
+          {% csrf_token %}
+          <div class="form-group">
+              <label for="model_name">Nome do Modelo</label>
+              <input type="text" id="model_name" name="model_name" class="form-control" required>
+          </div>
+          <div class="form-group">
+              <label for="model_version">Versão</label>
+              <input type="text" id="model_version" name="model_version" class="form-control" required>
+          </div>
+          <div class="form-group">
+              <label for="model_accuracy">Acurácia (%)</label>
+              <input type="number" id="model_accuracy" name="model_accuracy" class="form-control" required>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary modal-close">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Salvar Modelo</button>
+          </div>
+      </form>
+  </div>
+</div>

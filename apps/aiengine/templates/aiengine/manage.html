@@ -1,0 +1,58 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}AI Engine - Manage Applications{% endblock %}
+
+{% block vendor_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/aiengine-modal.css' %}">
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+{{ block.super }}
+<script src="{% static 'js/aiengine-scripts.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Manage AI Applications</h2>
+        <button class="btn btn-primary" onclick="openAddModelModal()">Add New Model</button>
+    </div>
+    <div class="card-body">
+        <table class="table datatables-basic" id="models-table">
+            <thead>
+                <tr>
+                    <th>Model Name</th>
+                    <th>Created Date</th>
+                    <th>Accuracy</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for model in models %}
+                <tr>
+                    <td>{{ model.default_model }}</td>
+                    <td>{{ model.created_at|date:"Y-m-d" }}</td>
+                    <td>{{ model.get_accuracy }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">Edit</button>
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'aiengine/add_model_modal.html' %}
+
+<script>
+    $(document).ready(function() {
+        $('#models-table').DataTable();
+    });
+</script>
+{% endblock %}

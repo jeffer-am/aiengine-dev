@@ -1,0 +1,53 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}AI Engine - Estatísticas de Uso{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Estatísticas de Uso da API OpenAI</h2>
+    </div>
+    <div class="card-body">
+        <div id="usage-chart" style="height: 300px;"></div>
+
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tokens Utilizados</th>
+                    <th>Usuário</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in usage_stats %}
+                <tr>
+                    <td>{{ stat.date }}</td>
+                    <td>{{ stat.tokens_used }}</td>
+                    <td>{{ stat.user }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var options = {
+            chart: { type: 'line' },
+            series: [{
+                name: 'Tokens Utilizados',
+                data: {{ usage_chart_data|safe }}
+            }],
+            xaxis: {
+                categories: {{ usage_chart_dates|safe }}
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#usage-chart"), options);
+        chart.render();
+    });
+</script>
+{% endblock %}

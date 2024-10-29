@@ -1,0 +1,40 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}AI Engine - Logs{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>AI Engine Logs</h2>
+        <input type="text" placeholder="Search Logs" class="form-control" />
+    </div>
+    <div class="card-body">
+        <table class="table datatables-basic" id="logs-table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Level</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.level }}</td>
+                    <td>{{ log.message }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#logs-table').DataTable();
+    });
+</script>
+{% endblock %}

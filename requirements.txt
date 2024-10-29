@@ -1,0 +1,16 @@
+asgiref==3.8.1
+Django==5.1.2
+gunicorn==23.0.0
+packaging==24.1
+python-dotenv==1.0.1
+sqlparse==0.5.1
+typing_extensions==4.12.2
+whitenoise==6.7.0
+cryptography==43.0.3
+openai==1.52.2          # Biblioteca para integração com a API da OpenAI
+requests==2.32.3        # Para fazer requisições HTTP
+djangorestframework==3.15.2 # Para criar APIs RESTful
+redis==5.2.0            # Para usar cache e outras integrações com Redis
+celery==5.4.0           # Para tarefas assíncronas
+django-celery-results==2.5.1 # Para armazenar resultados das tarefas Celery no banco de dados
+channels==4.1.0         # Para WebSockets e comunicação assíncrona com Django Channels

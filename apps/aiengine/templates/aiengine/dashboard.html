@@ -1,0 +1,38 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}AI Engine - Dashboard{% endblock %}
+
+{% block vendor_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+{{ block.super }}
+<script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">AI Engine Dashboard</h5>
+    </div>
+    <div class="card-body">
+        <div id="metrics-chart" style="height: 300px;"></div>
+        <p>Status e métricas importantes do sistema de IA em tempo real.</p>
+    </div>
+</div>
+<script>
+    // Gráfico de métricas usando dados reais
+    var options = {
+        chart: { type: 'line' },
+        series: [{ name: 'Performance', data: {{ performance_data|safe }} }],
+        xaxis: { categories: {{ performance_dates|safe }} }
+    };
+    var chart = new ApexCharts(document.querySelector("#metrics-chart"), options);
+    chart.render();
+</script>
+{% endblock %}

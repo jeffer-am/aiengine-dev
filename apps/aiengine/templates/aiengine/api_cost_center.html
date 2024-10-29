@@ -1,0 +1,34 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}AI Engine - Centro de Custos{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Centro de Custos da API OpenAI</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Uso (tokens)</th>
+                    <th>Custo (USD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cost in costs %}
+                <tr>
+                    <td>{{ cost.date }}</td>
+                    <td>{{ cost.tokens_used }}</td>
+                    <td>${{ cost.cost }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

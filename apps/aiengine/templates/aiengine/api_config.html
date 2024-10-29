@@ -1,0 +1,50 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}AI Engine - Configuração da API{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Configuração da API OpenAI</h2>
+    </div>
+    <div class="card-body">
+        <form id="apiConfigForm" method="POST" action="{% url 'app-aiengine-api-config' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="api_key">Chave da API</label>
+                <input type="text" id="api_key" name="api_key" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Salvar Configuração</button>
+                <button type="button" class="btn btn-secondary" onclick="testAPIConnection()">Testar Conexão</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function testAPIConnection() {
+    const apiKey = document.getElementById('api_key').value;
+    fetch("{% url 'app-aiengine-api-test' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ api_key: apiKey })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("Conexão com API bem-sucedida!");
+        } else {
+            alert("Falha na conexão com API: " + data.message);
+        }
+    })
+    .catch(error => console.error("Erro ao testar conexão:", error));
+}
+</script>
+{% endblock %}
